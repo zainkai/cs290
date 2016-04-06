@@ -1,0 +1,36 @@
+table {
+	border: 4px dotted blue;
+}
+
+tr:nth-child(even){
+	background-color: gold;
+}
+
+table td,th{
+	border: 1px solid green;
+}
+
+tbody th{
+	font-style: italic;
+	font-weight: normal;
+	background-color: white; /* over writes nth-child selector*/
+	color:red;
+}
+
+#div_content{
+	background-color: pink;
+	width: 75%;
+	padding: 20px;
+}
+
+#inner_div{
+	background-color: #6FC2DE;
+	margin: auto;
+	width: 75%;
+}
+
+form{
+	border:1px solid black;
+	padding: 10px;
+
+}
