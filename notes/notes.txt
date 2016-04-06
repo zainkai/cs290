@@ -1,0 +1,6 @@
+http://52.37.167.33:3000/
+
+start server command: forever start app.js
+
+stop server command: forever stop app.js
+
