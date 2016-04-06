@@ -1,8 +1,0 @@
-server ip is:
-http://52.37.167.33:3000/
-
-to start server type command
-forever start app.js
-
-to stop server type command
-forever stop app.js
