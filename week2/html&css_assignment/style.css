@@ -1,0 +1,43 @@
+/******************
+* Kevin Turkington
+* 4/5/16
+* css/html assignment
+* cs290
+********************/
+
+table {
+	border: 4px dotted blue; /* size, type, color */
+}
+
+tr:nth-child(even){
+	background-color: gold;
+}
+
+table td,th{
+	border: 1px solid green;
+}
+
+tbody th{
+	font-style: italic;
+	font-weight: normal;/*Disables bold */
+	background-color: white; /* over writes nth-child selector*/
+	color:red;
+}
+
+#div_content{
+	background-color: pink;
+	width: 75%;
+	padding: 20px;
+}
+
+#inner_div{
+	background-color: #6FC2DE; /* hex color */
+	margin: auto; /*centered relative to parent */
+	width: 75%;
+}
+
+form{
+	border:1px solid black;
+	padding: 10px;
+
+}
