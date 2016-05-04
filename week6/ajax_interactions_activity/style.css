@@ -1,0 +1,14 @@
+/******************
+* Kevin Turkington
+* cs290
+********************/
+
+table {
+	border: 1px solid black; /* size, type, color */
+}
+
+form{
+	border:1px solid black;
+	padding: 5px;
+
+}

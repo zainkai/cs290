@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Weather API</title>
+		<link rel="stylesheet" href="style.css" type="text/css">
+	</head>
+	<body>
+		<div>
+			<h2> Weather API</h2>
+			<form id="weather_form">
+				<p>Choose a input:
+					<input id="rad_c" type="radio" name="radio_info" value="city" checked> City
+					<input id="rad_z" type="radio" name="radio_info" value="zipcode"> Zip Code
+				</p>
+				<p id=info_indicator> City:</p>
+				<input id=weather_data_input type="text" name="text_input">
+				</br></br>
+
+				<input id=weather_submit type="submit">
+			</form>
+		</div>
+
+		<br>
+
+		<div id="results_div">
+			<h3> Results: </h3>
+		</div>
+
+
+
+		<script src="weather.js"></script>
+	</body>
+</html>
