@@ -6,7 +6,7 @@
 ***************************/
 
 
-var api_key = "111111111111111111111111";//put your own api key
+var api_key = "11111111111111111111111";//put your own api key
 var data_set = "city";
 
 
