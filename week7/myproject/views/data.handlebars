@@ -1,0 +1,12 @@
+<h1> {{title}} </h1>
+<h3> Here is what it contained: </h3>
+
+
+<table>	
+	{{#each data}}
+		<tr>
+			<th>{{this.name}}:</th>
+			<td>{{this.value}}</td>
+		</tr>
+	{{/each}}
+</table>

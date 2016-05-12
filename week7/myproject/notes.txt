@@ -1,0 +1,15 @@
+file structure MUST be in this order for express handlebars to work.
+
+Parent directory
+	controllers.js
+	<views
+		home.handlebars
+		foobar.handlebars
+		...
+		<layout
+			main.handlebars
+
+
+in layout ... parent view main.handlebars:
+doesnt like <div> </div> and will not render. however it will render
+other html
