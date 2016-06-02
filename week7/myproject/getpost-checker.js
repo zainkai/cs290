@@ -18,6 +18,12 @@ app.get('/',function(req,res){
   res.render('home');
 });
 
+app.get('/api',function(req,res){
+  res.render('api');
+});
+
+
+
 // /data-list controllers
 //**********************************************
 //handles get data

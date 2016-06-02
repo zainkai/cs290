@@ -69,7 +69,7 @@ document.getElementById("weather_submit").addEventListener("click", function(eve
 * function: fill_results_div
 * param: data object
 * description: creates a table with data that is appended to the website
-8**********/
+**********/
 function fill_results_div(data_obj){
 	var div = document.getElementById("results_div");
 	var my_table = document.createElement("table");

@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+	<title>Workout Tracker</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Edit Entry</h4>
+	      </div>
+	      <div class="modal-body">
+
+	      	<h4>Exercise:</h4>
+			<input type="text" name="exercise" class="form-control" id="txtModalExercise">
+			<h4>Weight:</h4>
+			<input type="text" name="weight" class="form-control" id="txtModalWeight">
+			<h4>Reps:</h4>
+			<input type="text" name="Reps" class="form-control" id="txtModalReps">
+			<h4>Unit:</h4>
+			<input type="radio" name="unit" value="0" class="form-control" checked="checked" id="radioModalUnit0">LBS
+			<input type="radio" name="unit" value="1" class="form-control" id="radioModalUnit1">KGS
+			<h4>date:</h4>
+			<input type="date" name="date" class="form-control" id="dateModal">
+			<input type="submit" class="btn btn-default" id="submitDataModal">
+
+	       
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+
+	{{{body}}}
+
+	<div>
+		<h2>NOTES:</h2>
+		<p>to reset sql table: http://52.37.167.33:3001/reset</p>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+
+	/***********
+	CODE FOR DAYSSSSSSS
+	WARNING MESSY CODE
+	*************/
+
+	function unitConvert(){
+		$.get("http://52.37.167.33:3001/reassign");
+
+		var table = document.getElementById("dataTable");
+		for (var i = 1, row; row = table.rows[i]; i++) {
+			//console.log(row.cells[3]);
+			if (row.cells[4].textContent == 0) {
+				row.cells[4].textContent = "Lbs";
+			}
+			else if(row.cells[4].textContent == 1){
+				row.cells[4].textContent = "Kgs";
+			}
+		}
+	}
+
+	function setIDs(){
+		var table = document.getElementById("dataTable");
+		for (var i = 1, row; row = table.rows[i]; i++) {
+			row.id = i;
+			row.cells[0].textContent =i;
+			id = row.cells[0].textContent;
+
+			row.cells[1].id = id+"_exercise";
+			row.cells[2].id = id+"_weight";
+			row.cells[3].id = id+"_reps";
+			row.cells[4].id = id+"_unit";
+			row.cells[5].id = id+"_date";
+			row.cells[6].id = id;
+			row.cells[7].id = id;
+		}
+	}
+
+	function appendbtns(){
+		var table = document.getElementById("dataTable");
+		for (var i = 1,row;row=table.rows[i];i++){
+			if (row.cells[7].textContent == null || row.cells[7].textContent == "" ||row.cells[7].textContent == "TODO delete Func"){
+				var deletebtn = document.createElement("BUTTON");
+				deletebtn.textContent = "Delete";
+				deletebtn.id = row.id;
+				deletebtn.onclick = function(){
+					var UrlDelete = "http://52.37.167.33:3001/delete?id="+this.id;
+					UrlDelete = encodeURI(UrlDelete);
+					var num = parseInt(this.id);
+					$.get(UrlDelete,function(){
+						table.deleteRow(num);
+					});
+				}
+				row.cells[7].textContent = "";
+				row.cells[7].appendChild(deletebtn);
+			}
+			if (row.cells[6].textContent == null || row.cells[6].textContent == "" ||row.cells[6].textContent == "TODO edit Func"){
+				var editbtn = document.createElement("BUTTON");
+				editbtn.textContent = "Edit";
+				editbtn.id = row.id;
+				editbtn.onclick = function(){
+					var num = parseInt(this.id);
+					$("#myModal").modal("show");
+
+					var modalSubmit = document.getElementById("submitDataModal");
+					var modalExercise = document.getElementById("txtModalExercise");
+					var modalWeight = document.getElementById("txtModalWeight");
+					var modalReps = document.getElementById("txtModalReps");
+					var modalUnit0 = document.getElementById("radioModalUnit0");
+					var modalUnit1 = document.getElementById("radioModalUnit1");
+					var modalDate = document.getElementById("dateModal");
+					var unit = null;
+
+					var exercise = document.getElementById(this.id+"_exercise");
+					var weight = document.getElementById(this.id+"_weight");
+					var reps = document.getElementById(this.id+"_reps");
+					var date = document.getElementById(this.id+"_date");
+					var unit = document.getElementById(this.id+"_unit");
+
+					modalExercise.value = exercise.textContent;
+					modalWeight.value = weight.textContent;
+					modalReps.value = reps.textContent;
+					modalDate.value = date.textContent;
+					if (unit == "lbs") {
+						modalUnit0.checked;
+					}
+					else{
+						modalUnit1.checked;
+					}
+
+					modalSubmit.onclick = function(){
+						if (modalUnit0.checked) {
+							var UrlEdit = "http://52.37.167.33:3001/update?id="+num+"&exercise="+modalExercise.value+"&weight="+modalWeight.value+"&reps="+modalReps.value+"&unit=0"+"&date="+modalDate.value;
+							UrlEdit = encodeURI(UrlEdit);
+							exercise.textContent = modalExercise.value;
+							weight.textContent = modalWeight.value;
+							reps.textContent = modalReps.value;
+							unit.textContent = "Lbs";
+							date.textContent = modalDate.value;
+
+						}else if(modalUnit1.checked){
+							var UrlEdit = "http://52.37.167.33:3001/update?id="+num+"&exercise="+modalExercise.value+"&weight="+modalWeight.value+"&reps="+modalReps.value+"&unit=1"+"&date="+modalDate.value;
+							UrlEdit = encodeURI(UrlEdit);
+							exercise.textContent = modalExercise.value;
+							weight.textContent = modalWeight.value;
+							reps.textContent = modalReps.value;
+							unit.textContent = "Kgs";
+							date.textContent = modalDate.value;
+						}
+						$.get(UrlEdit,function(){
+							//console.log(UrlEdit);
+						});
+					}
+				}
+				row.cells[6].textContent = "";
+				row.cells[6].appendChild(editbtn);
+			}
+
+		}
+		setIDs();
+	}
+	document.onload = setIDs();
+	document.onload = unitConvert();
+	document.onload = appendbtns();
+
+	//What Url should look like;
+	//http://52.37.167.33:3001/insert?exercise=curls&unit=0&weight=45&reps=12&date=2016-05-06
+	function submitInsert(){
+		event.preventDefault();
+		//alert("submitInsert() was accessed");
+
+		var exercise = document.getElementById("txtFormExercise");
+		var weight = document.getElementById("txtFormWeight");
+		var reps = document.getElementById("txtFormReps");
+		var unitLBS = document.getElementById("radioUnit0");
+		var unitKGS = document.getElementById("radioUnit1");
+		var date = document.getElementById("dateForm");
+
+		var Url = "";
+		if (unitLBS.checked) {
+			Url = "http://52.37.167.33:3001/insert?exercise="+exercise.value+"&weight="+weight.value+"&reps="+reps.value+"&unit=0"+"&date="+date.value;
+			Url = encodeURI(Url);
+		}
+		else{
+			Url = "http://52.37.167.33:3001/insert?exercise="+exercise.value+"&weight="+weight.value+"&reps="+reps.value+"&unit=1"+"&date="+date.value;
+			Url = encodeURI(Url);
+		}
+
+		//console.log(Url);
+		$.get(Url,function(){
+			//console.log(data);
+			var row = document.createElement("TR");
+			var tdId = document.createElement("TD");
+			var tdExercise = document.createElement("TD");
+			var tdWeight = document.createElement("TD");
+			var tdReps = document.createElement("TD");
+			var tdUnit = document.createElement("TD");
+			var tdDate = document.createElement("TD");
+			var tdEdit = document.createElement("TD");
+			var tdDelete = document.createElement("TD");
+			var unit =null;
+
+			row.appendChild(tdId);
+			row.appendChild(tdExercise);
+			row.appendChild(tdWeight);
+			row.appendChild(tdReps);
+			row.appendChild(tdUnit);
+			row.appendChild(tdDate);
+			row.appendChild(tdEdit);
+			row.appendChild(tdDelete);
+
+			//console.log(data);
+			tdId.textContent = "";
+			tdId.style.display='none';
+
+			tdExercise.textContent = exercise.value;
+			tdWeight.textContent = weight.value;
+			tdReps.textContent = reps.value;
+			tdDate.textContent = date.value;
+			tdEdit.textContent = "TODO edit Func";
+			tdDelete.textContent = "TODO delete Func";
+
+			if (unitLBS.checked) {
+				tdUnit.textContent = "0";
+			}
+			else{
+				tdUnit.textContent = "1";
+			}
+			
+
+			$("#dataTable > tbody").append(row);
+			//console.log(row);
+			setIDs();
+			unitConvert();
+			appendbtns();
+		});
+	}
+
+	</script>
+
+</body>
+</html>

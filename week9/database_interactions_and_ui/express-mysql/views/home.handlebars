@@ -1,0 +1,50 @@
+<h1>Workout Tracker:</h1>
+
+<div class="form-group" style="width:500px">
+	<h2>New entry:</h2>
+	<form id="insert">
+		<h4>Exercise:</h4>
+		<input type="text" name="exercise" class="form-control" id="txtFormExercise">
+		<h4>Weight:</h4>
+		<input type="text" name="weight" class="form-control" id="txtFormWeight">
+		<h4>Reps:</h4>
+		<input type="text" name="Reps" class="form-control" id="txtFormReps">
+		<h4>Unit:</h4>
+		<input type="radio" name="unit" value="0" class="form-control" checked="checked" id="radioUnit0">LBS
+		<input type="radio" name="unit" value="1" class="form-control" id="radioUnit1">KGS
+		<h4>date:</h4>
+		<input type="date" name="date" class="form-control" id="dateForm">
+		<input type="submit" class="btn btn-default" id="submitData" onclick="submitInsert()">
+	</form>
+</div>
+
+</br>
+</br>
+
+<div>
+<table id="dataTable" class="table table-striped">
+	<tr>
+		<th style="display:none">id</th>
+    	<th>Exercise</th>
+    	<th>Weight</th>
+    	<th>Reps</th>
+    	<th>Lbs/Kg</th>
+    	<th>Date</th>
+    	<th>Edit</th>
+    	<th>Delete</th>
+	</tr>
+	{{#each results}}
+	<tr id={{this.id}}>
+		<td style="display:none" class="IDHERE">{{this.id}}</td>
+  		<td id={{this.id}}_exercise>{{this.exercise}}</td>
+  		<td id={{this.id}}_weight>{{this.weight}}</td>
+  		<td id={{this.id}}_reps>{{this.reps}}</td>
+  		<td id={{this.id}}_unit>{{this.unit}}</td>
+  		<td id={{this.id}}_date>{{this.date}}</td>
+  		<td id={{this.id}} class="editbtn"></td>
+  		<td id={{this.id}} class="deletebtn"></td>
+	</tr>
+	{{/each}}
+
+</table>
+</div>

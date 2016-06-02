@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Netflix roullette Api</title>
+		<link rel="stylesheet" href="style.css" type="text/css">
+	</head>
+	<body>
+	<!-- Content goes here! -->
+	<div>
+		<H1 align="center"> Netflix Roulette Api</H1>
+  		<h2 align="center">How to guide</h2>
+  		<h4>By: Kevin Turkington</h4>
+  		<h4> CS 290 </h4>
+	</div>
+	<br>
+	<div>
+		<h3>Purpose:</h3>
+		<p> This API is the replacement for the official netflix search API.
+		 In late 2014 the Official Netflix public API was shutdown. Despite the name This Netflix API is NOT a random movie generator but similar to a movie search engine that works via get requests.</p>
+
+		 <a href="http://netflixroulette.net/api/"> Offcial Netflix Roulette API documentation can be found here</a>
+
+		 <h3>Misc:</h3>
+		 <p>Keep in mind this API is a <b>non official</b> tool that can be used by the public without any verification keys. keep in mind usage and bandwidth of requests.</p>
+	</div>
+	<br>
+	<div>
+		<h3> How to make an API request?</h3>
+		<p> Requests can be made via Get requests to the following url:</p>
+
+		<a href="http://netflixroulette.net/api/api.php">http://netflixroulette.net/api/api.php?</a> 
+		<br>
+
+		<h4>Parameters for GET requests:</h4>
+		<ul>
+			<li> Genre (string)</li>
+			<li> Movies (boolean)</li>
+			<li> TV (boolean)</li>
+			<li> LowRating (float 1-5)</li>
+			<li> HighRating (float 1-5)</li>
+			<li> Director (string)</li>
+			<li> Keyword (string)</li>
+			<li> Year (int)</li>
+			<li> type (string)</li>
+		</ul>
+		<h4>Sample code: (JavaScript)</h4>
+		<p id="code">
+
+		var API_URL = http://netflixroulette.net/api/api.php?; //note the question mark at the end <br> <br>
+
+		var title_value = "ip man"; <br>
+		var predicate = "title=" + URLEncodeComponent(title_value);//making string readable for get requests<br> <br>
+
+		var searchURL = API_URL + predicate;<br><br>
+
+		console.log(searchURL);<br>
+		// output should be: http://netflixroulette.net/api/api.php?title=ip%20man <br>
+
+		 </p>
+		<p>description: display movie data from title alone. <br>
+		Disred output: <a href="http://netflixroulette.net/api/api.php?title=ip%20man">http://netflixroulette.net/api/api.php?title=ip%20man</a></p>
+
+		<br>
+		<h3> Parameter notes:</h3>
+		<br>
+
+		<h4>Genre</h4>
+		<p>This variable is very straight forward and will match directly with genres in the actual netflix web application. However in some cases genres such as action will need "movies" appendend to the end. </p>
+		<h5> For example:</h5>
+		<p id="code"> 
+		var genre = "?genre=action";<br>
+		<br>
+		genre = genre + " movies";<br>
+		console.log(genre);//console should display ?genre=action movies<br>
+		<br>
+		var predicate = URLEncodeComponent(genre); <br>
+		console.log(predicate);// console should display ?genre=action%20movies</p>
+		<br>
+
+		<h4>Movies</h4>
+		<p>This variable is helpful for the sorting movies for the API. It is a simple True/False if the user wants to see movies or not. The default for this function is True.</p>
+		<br>
+
+		<h4>TV</h4>
+		<p>This variable is similar to movies however it is used for sorting Tv shows in its search. The default is False.</p>
+		<br>
+
+		<h4>LowRating</h4>
+		<p>This Variable helps sort out any movies below the threshold. The lowest this variable can be is 1.0, and can be a float (1.3,2.3,4.9). This highest this variable can be set is 5.0. The default is 1.0. </p>
+		<br>
+
+		<h4>HighRating</h4>
+		<p>This Variable helps sort out any movies above this threshold. The lowest this variable can be is 1.0, and can be a float like LowRating. The highest value this variale can be set is 5.0. The default is 5.0. </p>
+		<br>
+
+		<h4>Director</h4>
+		<p>This variale will return any movies with a director name that is similar to the one given. Full and partial names can be used such as James, or James Franco.</p>
+		<br>
+
+		<h4>Keyword</h4>
+		<p>Any movies with descriptions that match the keyword will be returned. This search criteria is not the most effective for finding movies you may want.</p>
+		<br>
+
+		<h4>Year</h4>
+		<p>Any movies made during a specific year will be returned.Any movies or tv shows that were made during a different year will not be returned, even if exact movie titles or director names are used.</p>
+		<br>
+
+		<h4>Type</h4>
+		<p>This specifys the data type sent by the API to the client. For example JSON, XML, as well as other formats can be returned to the client to be processed.</p>
+
+		<ul>Full list:
+			<li>JSON</li>
+			<li>XML</li>
+			<li>plain</li>
+		</ul>
+		<br>
+	</div>
+	<br>
+	<div>
+		<h3>How to use:</h3>
+		<p>The data recieve can vary from parameter broadness. But the API seems to have a return movie threshold of roughly 1000 movies. Any searches that are too broad will return a 400:bad request error. Additionally Any searches too specific with bad information will return a 404:Not found error.</p>
+		<br>
+
+		<h4>Data example in JSON</h4>
+		<p id="code">
+		Request: http://netflixroulette.net/api/api.php?director=james%20franco
+		<br>
+		<br>
+		{<br>
+		"unit": 39651<br>
+		"show_id": 70293643<br>
+		"show_title": "Child of God"<br>
+		"release_year": "2012"<br>
+		"rating": "2.4"<br>
+		"category": "Independent Movies"<br>
+		"show_cast": "Scott Haze, Tim..."<br>
+		"director": "James Franco"<br>
+		"summary": "First parentless, then homeless..."<br>
+		"poster": "http://netflixroulette.net/api/posters/70293643.jpg"<br>
+		"mediatype": 0<br>
+		"runtime": "N/A"<br>
+		}<br>
+		</p>
+	</div>
+	<br>
+	<div>
+		<h3>Wrappers</h3>
+		<p>Alternatively movie data can be requested in different programming languages such as C, C++, Java, and Javascript for various web applications. For more information links and instructions can be found at bottom of the official <a href="http://netflixroulette.net/api/"> Offcial Netflix Roulette API documentation website</a></p>
+	</div>
+
+
+
+	<!-- End of Content -->
+	</body>
+</html>
